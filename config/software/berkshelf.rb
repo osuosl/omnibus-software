@@ -17,7 +17,6 @@
 
 name "berkshelf"
 default_version "master"
-always_build true
 
 source :git => "git://github.com/berkshelf/berkshelf"
 
@@ -30,9 +29,9 @@ else
   dependency "libffi"
   dependency "ruby"
   dependency "rubygems"
+  dependency "libarchive"
 end
 dependency "nokogiri"
-dependency "libarchive"
 
 dependency "bundler"
 
