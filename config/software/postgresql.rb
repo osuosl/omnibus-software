@@ -23,6 +23,10 @@ dependency "openssl"
 dependency "libedit"
 dependency "ncurses"
 
+version "9.1.9" do
+  source :md5 => "577f503a3fbabbe26145d0c6dae0b440"
+end
+
 version "9.2.8" do
   source :md5 => "c5c65a9b45ee53ead0b659be21ca1b97"
 end

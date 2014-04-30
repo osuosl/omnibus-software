@@ -24,9 +24,11 @@ default_version "1.0.6"
 dependency "zlib"
 dependency "openssl"
 
-source :url => "http://www.bzip.org/#{version}/#{name}-#{version}.tar.gz",
-       :md5 => "00b516f4704d4a7cb50a1d97e6e8e15b"
+version "1.0.6" do
+  source :md5 => "00b516f4704d4a7cb50a1d97e6e8e15b"
+end
 
+source :url => "http://www.bzip.org/#{version}/#{name}-#{version}.tar.gz"
 relative_path "#{name}-#{version}"
 
 prefix="#{install_dir}/embedded"

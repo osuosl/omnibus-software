@@ -20,9 +20,11 @@ default_version "1.9.1"
 
 dependency "libgcc"
 
-source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz",
-       :md5 => "59f6e4c4193cb875964ffbe8aa384b58"
+version "1.9.1" do
+  source :md5 => "59f6e4c4193cb875964ffbe8aa384b58"
+end
 
+source :url => "http://ftp.gnu.org/gnu/gdbm/gdbm-1.9.1.tar.gz"
 relative_path "gdbm-1.9.1"
 
 build do

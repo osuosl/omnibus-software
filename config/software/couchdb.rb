@@ -23,9 +23,11 @@ dependency "icu"
 dependency "curl"
 dependency "erlang"
 
-source :url => "http://archive.apache.org/dist/couchdb/#{version}/apache-couchdb-#{version}.tar.gz",
-       :md5 => "cfdc2ab751bf18049c5ef7866602d8ed"
+version "1.0.3" do
+  source :md5 => "cfdc2ab751bf18049c5ef7866602d8ed"
+end
 
+source :url => "http://archive.apache.org/dist/couchdb/#{version}/apache-couchdb-#{version}.tar.gz"
 relative_path "apache-couchdb-#{version}"
 
 build_env = {

@@ -2,9 +2,11 @@
 name "xproto"
 default_version "7.0.25"
 
-source :url => 'http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.25.tar.gz',
-  :md5 => 'a47db46cb117805bd6947aa5928a7436'
+version "7.0.25" do
+  source :md5 => "a47db46cb117805bd6947aa5928a7436"
+end
 
+source :url => 'http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.25.tar.gz'
 relative_path 'xproto-7.0.25'
 
 configure_env =

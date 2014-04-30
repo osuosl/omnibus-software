@@ -21,9 +21,11 @@ default_version "7.36.0"
 dependency "zlib"
 dependency "openssl"
 
-source :url => "http://curl.haxx.se/download/curl-#{version}.tar.gz",
-       :md5 => "643a7030b27449e76413d501d4b8eb57"
+version "7.36.0" do
+  source :md5 => "643a7030b27449e76413d501d4b8eb57"
+end
 
+source :url => "http://curl.haxx.se/download/curl-#{version}.tar.gz"
 relative_path "curl-#{version}"
 
 build do

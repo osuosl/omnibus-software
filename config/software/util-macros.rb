@@ -2,9 +2,11 @@
 name "util-macros"
 default_version "1.18.0"
 
-source :url => 'http://xorg.freedesktop.org/releases/individual/util/util-macros-1.18.0.tar.gz',
-  :md5 => 'fd0ba21b3179703c071bbb4c3e5fb0f4'
+version "1.18.0" do
+  source :md5 => "fd0ba21b3179703c071bbb4c3e5fb0f4"
+end
 
+source :url => 'http://xorg.freedesktop.org/releases/individual/util/util-macros-1.18.0.tar.gz'
 relative_path 'util-macros-1.18.0'
 
 configure_env =
