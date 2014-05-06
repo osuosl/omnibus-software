@@ -28,6 +28,10 @@ relative_path "logrotate-#{version}"
 env = {
   # Patch allows this to be set manually
   "BASEDIR" => "#{install_dir}/embedded",
+
+  # Need to have this in place for 'make install' :/
+  "PREFIX" => "#{install_dir}/embedded",
+
   # These EXTRA_* vars allow us to append to the Makefile's hardcoded LDFLAGS
   # and CFLAGS
   "EXTRA_LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -37,5 +41,5 @@ env = {
 build do
   patch :source => "logrotate_basedir_override.patch", :plevel => 0
   command "make -j #{max_build_jobs}", :env => env
-  command "make install"
+  command "make install", :env => env
 end
