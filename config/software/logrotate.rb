@@ -36,6 +36,8 @@ env = {
   # and CFLAGS
   "EXTRA_LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
   "EXTRA_CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+
+  "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
 }
 
 build do
