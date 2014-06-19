@@ -31,15 +31,11 @@ else
   dependency "zlib"
 end
 
-# nokogiri uses pkg-config, and on a mac that will find the system pkg-config
-# which will find the system pkg-configs which will pull in libicucore from the
-# libxml2 pkg-config spec.  override pkg-configs path here to point into our
-# /opt/chef/embedded pkg-configs.  this should probably be done more generally,
-# in core ominbus-ruby.
-env = {
-  "PKG_CONFIG_PATH" => "#{install_dir}/embedded/lib/pkgconfig",
+env = with_embedded_path()
+env = with_standard_compiler_flags(env)
+env.merge!({
   "NOKOGIRI_USE_SYSTEM_LIBRARIES" => "true",
-}
+})
 
 build do
   gem ["install",

@@ -31,25 +31,11 @@ source url: "http://ftp.gnu.org/gnu/libtool/libtool-#{version}.tar.gz"
 relative_path "libtool-#{version}"
 
 env = with_embedded_path()
-env = with_standard_compiler_flags(env)
-
-# NONSTANDARD: uses gcc/g++ instead of xlc/xlC
-env = env.merge({
-      "CC" => "gcc -maix64",
-      "CXX" => "g++ -maix64",
-      "LD" => "ld -b64",
-      "CFLAGS" => "-maix64 -O -I#{install_dir}/embedded/include",
-      "OBJECT_MODE" => "64",
-      "ARFLAGS" => "-X64 cru",
-      "LDFLAGS" => "-L#{install_dir}/embedded/lib -Wl,-blibpath:#{install_dir}/embedded/lib:/usr/lib:/lib",
-    }) if platform == "aix"
+env = with_standard_compiler_flags(env, :aix => :use_gcc)
 
 build do
-  if platform == "aix"
-    command "./configure --prefix=#{install_dir}/embedded --with-gcc", :env => env
-  else
-    command "./configure --prefix=#{install_dir}/embedded", :env => env
-  end
+  configure_command = "./configure --prefix=#{install_dir}/embedded"
+  configure_command << " --with-gcc" if platform == "aix"
   command "make", :env => env
   command "make install", :env => env
 end
