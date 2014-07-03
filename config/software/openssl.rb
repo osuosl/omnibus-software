@@ -129,12 +129,21 @@ build do
                           raise "sorry, we don't support building openssl on non-gcc solaris builds right now."
                         end
                       else
-                        ["./config",
-                        common_args,
-                        "disable-gost",  # fixes build on linux, but breaks solaris
-                        "-L#{install_dir}/embedded/lib",
-                        "-I#{install_dir}/embedded/include",
-                        "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
+                        if Ohai.kernel['machine'] == "ppc64"
+                          ["/bin/sh ./Configure",
+                           "linux-ppc",
+                           common_args,
+                           "disable-gost",  # fixes build on linux, but breaks solaris
+                           "-L#{install_dir}/embedded/lib",
+                           "-I#{install_dir}/embedded/include",
+                           "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
+                        else
+                          ["./config",
+                          common_args,
+                          "disable-gost",  # fixes build on linux, but breaks solaris
+                          "-L#{install_dir}/embedded/lib",
+                          "-I#{install_dir}/embedded/include",
+                          "-Wl,-rpath,#{install_dir}/embedded/lib"].join(" ")
                       end
 
   # openssl build process uses a `makedepend` tool that we build inside the bundle.
