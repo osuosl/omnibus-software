@@ -31,6 +31,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
+          " --build=powerpc64le-unknown-linux-gnu" \
           " --prefix=#{install_dir}/embedded" \
           " --disable-debug" \
           " --disable-host-tool" \
@@ -43,6 +44,7 @@ build do
   # These do not serve our purpose, so we must explicitly
   # ./configure in the glib dir, with the Omnibus ldflags.
   command  "./configure" \
+           " --build=powerpc64le-unknown-linux-gnu" \
            " --prefix=#{install_dir}/embedded" \
            " --with-libiconv=gnu", env: env, cwd: "#{project_dir}/glib"
 
