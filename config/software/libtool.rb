@@ -33,6 +33,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   command "./configure" \
+          " --build=powerpc64le-unknown-linux-gnu" \
           " --prefix=#{install_dir}/embedded", env: env
 
   make env: env
