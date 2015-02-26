@@ -32,6 +32,7 @@ build do
             " --prefix=#{install_dir}/embedded", env: env
   else
     command "./configure" \
+            " --build=powerpc64le-unknown-linux-gnu" \
             " --enable-libgdbm-compat" \
             " --prefix=#{install_dir}/embedded", env: env
   end
