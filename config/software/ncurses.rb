@@ -99,6 +99,7 @@ build do
     "--enable-overwrite",
     "--enable-widec",
     "--without-cxx-binding",
+    "--build=powerpc64le-unknown-linux-gnu",
   ]
 
   command cmd.join(" "), env: env
