@@ -30,6 +30,7 @@ build do
   env['INSTALL'] = "/opt/freeware/bin/install" if ohai['platform'] == "aix"
 
   command "./configure" \
+          " --build=powerpc64le-unknown-linux-gnu" \
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
