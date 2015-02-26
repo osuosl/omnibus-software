@@ -117,6 +117,7 @@ build do
     "--without-normal",
     "--enable-overwrite",
     "--without-cxx-binding",
+    "--build=powerpc64le-unknown-linux-gnu",
   ]
 
   command cmd.join(" "), env: env
