@@ -26,6 +26,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   configure_command = "./configure" \
+                      "--build=powerpc64le-unknown-linux-gnu" \
                       " --prefix=#{install_dir}/embedded"
   if aix?
     patch_env = env.dup
