@@ -41,6 +41,7 @@ build do
   end
 
   command "./configure" \
+          " --build=powerpc64le-unknown-linux-gnu",
           " --prefix=#{install_dir}/embedded", env: env
 
   make "-j #{workers}", env: env
