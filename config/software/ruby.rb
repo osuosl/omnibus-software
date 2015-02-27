@@ -74,7 +74,6 @@ when "aix"
   env['M4'] = "/opt/freeware/bin/m4"
 else  # including solaris, linux
   env['CFLAGS'] << " -O3 -g -pipe"
-  env['LDFLAGS'] << " -L#{install_dir}/embedded/lib -Wl,-rpath,#{install_dir}/embedded/lib"
 end
 
 build do
