@@ -25,6 +25,7 @@ dependency "libyaml"
 dependency "libiconv"
 dependency "libffi"
 dependency "gdbm"
+dependency "patchelf"
 
 version("1.9.3-p484") { source md5: "8ac0dee72fe12d75c8b2d0ef5d0c2968" }
 version("1.9.3-p547") { source md5: "7531f9b1b35b16f3eb3d7bea786babfd" }
@@ -155,5 +156,10 @@ build do
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
   make "-j #{workers} install", env: env
+
+  patchelf = [ "#{install_dir}/embedded/bin/patchelf",
+               "--set-rpath #{install_dir}/embedded/lib64"].join(" ")
+
+  command "#{patchelf} #{install_dir}/embedded/lib/ruby/2.1.0/powerpc64le-linux/fiddle.so"
 
 end
