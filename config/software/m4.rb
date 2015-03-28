@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2015 Chef Software, Inc.
+# Copyright 2014 Chef, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,25 +14,19 @@
 # limitations under the License.
 #
 
-name "omnibus-ctl"
-default_version "0.3.4"
+name "m4"
+default_version "1.4.17"
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
+source url: "http://ftp.gnu.org/gnu/m4/m4-#{version}.tar.gz",
+       md5: "a5e9954b1dae036762f7b13673a2cf76"
 
-source git: "git://github.com/chef/omnibus-ctl.git"
-
-relative_path "omnibus-ctl"
+relative_path "m4-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Remove existing built gems in case they exist in the current dir
-  delete "omnibus-ctl-*.gem"
+  command "./configure --prefix=#{install_dir}/embedded", env: env
 
-  gem "build omnibus-ctl.gemspec", env: env
-  gem "install omnibus-ctl-*.gem --no-rdoc --no-ri", env: env
-
-  touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end

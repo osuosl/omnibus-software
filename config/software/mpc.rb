@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2015 Chef Software, Inc.
+# Copyright 2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,25 +14,25 @@
 # limitations under the License.
 #
 
-name "omnibus-ctl"
-default_version "0.3.4"
+name "mpc"
+default_version "1.0.2"
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
+dependency "gmp"
+dependency "mpfr"
 
-source git: "git://github.com/chef/omnibus-ctl.git"
+version("1.0.2") { source md5: "68fadff3358fb3e7976c7a398a0af4c3" }
 
-relative_path "omnibus-ctl"
+source url: "ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.2.tar.gz"
+
+relative_path "mpc-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Remove existing built gems in case they exist in the current dir
-  delete "omnibus-ctl-*.gem"
+  configure_command = ["./configure",
+                       "--prefix=#{install_dir}/embedded"]
 
-  gem "build omnibus-ctl.gemspec", env: env
-  gem "install omnibus-ctl-*.gem --no-rdoc --no-ri", env: env
-
-  touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
+  command configure_command.join(" "), env: env
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end

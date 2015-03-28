@@ -1,5 +1,5 @@
 #
-# Copyright 2012-2015 Chef Software, Inc.
+# Copyright 2014 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,25 +14,26 @@
 # limitations under the License.
 #
 
-name "omnibus-ctl"
-default_version "0.3.4"
+name "gmp"
+default_version "6.0.0a"
 
-dependency "ruby"
-dependency "rubygems"
-dependency "bundler"
+version("6.0.0a") { source md5: "b7ff2d88cae7f8085bd5006096eed470" }
 
-source git: "git://github.com/chef/omnibus-ctl.git"
+source url: "https://ftp.gnu.org/gnu/gmp/gmp-#{version}.tar.bz2"
 
-relative_path "omnibus-ctl"
+relative_path "gmp-6.0.0"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  # Remove existing built gems in case they exist in the current dir
-  delete "omnibus-ctl-*.gem"
+  if solaris2?
+    env['ABI'] = "32"
+  end
 
-  gem "build omnibus-ctl.gemspec", env: env
-  gem "install omnibus-ctl-*.gem --no-rdoc --no-ri", env: env
+  configure_command = ["./configure",
+                       "--prefix=#{install_dir}/embedded"]
 
-  touch "#{install_dir}/embedded/service/omnibus-ctl/.gitkeep"
+  command configure_command.join(" "), env: env
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end
